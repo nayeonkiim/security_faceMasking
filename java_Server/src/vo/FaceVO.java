@@ -1,5 +1,6 @@
 package vo;
 
+//수정하기
 public class FaceVO {
 	
 	private int id;

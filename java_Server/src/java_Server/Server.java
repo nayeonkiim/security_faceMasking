@@ -3,16 +3,19 @@ package java_Server;
 import java.io.*;
 import java.net.*;
 
+import dao.FaceDAO;
+
 public class Server {
 	public static void main(String[] args) {
 		  DatagramSocket server = null;
 		  DatagramPacket receivePacket, sendPacket;
+		  FaceDAO dao = new FaceDAO();
 		  try {
 			  
 			  File file =null;
 			  DataOutputStream dos =null;
 			  
-			   server = new DatagramSocket(3030);
+			   server = new DatagramSocket(40000);
 			   System.out.println("Server Ready...");
 			   
 			   byte [] buffer = new byte[128];
@@ -36,8 +39,10 @@ public class Server {
 			  if(msg.equals("bye")) break;
 			    
 			    System.out.println("Client 로부터 들어온 문자열 : " + msg);
-			 
 			   }
+			   
+			   //dao.insert
+			   
 		  } catch (Exception e) {
 		   System.out.println(e.getMessage());
 		  }
