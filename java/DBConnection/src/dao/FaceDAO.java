@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,29 +26,29 @@ public class FaceDAO {
 		return single;
 	}
 	
-	Connection conn;
 	
-	public FaceDAO() {
-		conn = DBConnector.getInstance().getConn();
-	}
 	
+	// 전체 db 불러오기
 	public List<FaceVO> selectList() {
 
 		List<FaceVO> list = new ArrayList<FaceVO>();
+		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		String sql = "";
 
 		try {
-			//1.Connection얻어온다
-			conn = DBConnector.getInstance().getConn();
-			//2.명령처리객체정보를 얻어오기
+			
+			//Connection획득
+			conn = new DBConnector().getConn();
+					
+			//명령처리객체정보를 얻어오기
 			stmt = conn.createStatement();
 			
 			//query문
 			sql = "select * from face";
 
-			//3.결과행 처리객체 얻어오기
+			//결과행 처리객체 얻어오기
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
@@ -78,6 +79,50 @@ public class FaceDAO {
 		}
 
 		return list;
+	}
+	
+	
+	
+	
+	// insert
+	public int insert(FaceVO vo) {
+		int res = 0;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		String sql = "insert into face values(?,?)";
+
+		try {
+			//1.Connection획득
+			conn = new DBConnector().getConn();
+			
+			//2.명령처리객체 획득
+			pstmt = conn.prepareStatement(sql);
+
+			//3.pstmt parameter 채우기
+			pstmt.setInt(1, vo.getId());
+			pstmt.setString(2, vo.getName());
+			
+
+			//4.DB로 전송(res:처리된행수)
+			res = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return res;
 	}
 	
 	

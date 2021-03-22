@@ -3,26 +3,20 @@ package service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DBConnector {
-	
-	// single-ton pattern: 
-	static DBConnector single = null;
 
-	public static DBConnector getInstance() {
-		//생성되지 않았으면 생성
-		if (single == null)
-			single = new DBConnector();
-		//생성된 객체정보를 반환
-		return single;
-	}
+/* DB연결 class */
+
+public class DBConnector {
 	
 	private Connection conn; 
 	
 	public DBConnector() {
 		//jdbc 드라이버 주소 
 		String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+		
+		String unicode = "characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true&validationQuery=select 1";
 		// DB 접속 주소
-		String DB_URL = "jdbc:mysql://localhost:3306/facemasking?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+		String DB_URL = "jdbc:mysql://localhost:3306/facemasking?" + unicode;
 		// DB ID
 		String USERNAME = "root"; 
 		// DB Password
@@ -40,6 +34,7 @@ public class DBConnector {
 			
 			else{
 				System.out.println("실패");
+				
 				} 
 		} 
 		
