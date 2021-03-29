@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import encrypt
 import imageio
 import matplotlib.pyplot as plt
+import client
 
 xml = '/haarcascades/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(xml)
@@ -36,18 +37,19 @@ while (True):
                 # 암호화
                 encrypted = encrypt.kaleidoscope(face, 'pocari sweat', noise=50)
                 #암호화 된 사진을 s3에 올리기
-                plt.imsave(name, encrypted);  # 암호화된 사진을 로컬에 저장하는 코드
+                plt.imsave(name, encrypted)  # 암호화된 사진을 로컬에 저장하는 코드
 
                 i += 1
-                time = datetime.now()
                 print("Number of faces detected: " + str(len(faces)))
                 for (x, y, w, h) in faces:
-                    print("face location: " + str(x), str(y), str(w), str(h))
                     face_img = frame[y:y + h, x:x + w]  # 인식된 얼굴 이미지 crop
                     face_img = cv2.resize(face_img, dsize=(0, 0), fx=0.04, fy=0.04)  # 축소
                     face_img = cv2.resize(face_img, (w, h), interpolation=cv2.INTER_AREA)  # 확대
                     frame[y:y + h, x:x + w] = face_img  # 인식된 얼굴 영역 모자이크 처리
 
+                # 자바 통신 코드 (시간값이랑, aws url 값 보내주기)
+                client.client(time2)
+                time = datetime.now()
         else:
             print('no frame!')
             break
