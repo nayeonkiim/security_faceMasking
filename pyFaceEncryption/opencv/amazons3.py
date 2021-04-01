@@ -16,7 +16,6 @@ csv_file.close()
 my_id = read_data[1][2]
 my_key = read_data[1][3]
 
-
 # %%
 def create_s3_bucket(bucket_name):
     print("Creating a bucket... " + bucket_name)
@@ -38,29 +37,7 @@ def create_s3_bucket(bucket_name):
         if e.response['Error']['Code'] == 'BucketAlreadyOwnedByYou':
             print("Bucket already exists. skipping..")
         else:
+            print(e)
             print("Unknown error, exit..")
 
 
-# %%
-# response = create_s3_bucket("security-facemasking")
-# print("Bucket : " + str(response))
-
-
-# %%
-# 파일 올리기
-import os
-import glob
-
-os.getcwd()
-input_path = "D:/testfiles/"
-files = glob.glob(os.path.join(input_path, '(testfile)*'))
-stored_names = list(map(lambda x: x.split("\\")[1], files))
-# %%
-for file, name in zip(files, stored_names):
-    s3 = boto3.client(
-        's3',  # 사용할 서비스 이름, ec2이면 'ec2', s3이면 's3', dynamodb이면 'dynamodb'
-        aws_access_key_id=my_id,  # 액세스 ID
-        aws_secret_access_key=my_key)  # 비밀 엑세스 키
-    s3.upload_file(file, "security-facemasking", name)
-
-# reference: https://assaeunji.github.io/aws/2020-04-02-boto3/
