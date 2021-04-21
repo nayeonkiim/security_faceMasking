@@ -3,13 +3,13 @@ import os
 import numpy as np
 import cv2
 from datetime import datetime
-import encrypt
+
 import imageio
 import matplotlib.pyplot as plt
-import client
-import fileUpload
 
-xml = '/haarcascades/haarcascade_frontalface_default.xml'
+from opencv import encrypt
+
+xml = './haarcascades/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(xml)
 
 cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용
