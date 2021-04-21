@@ -5,8 +5,8 @@ import sys
 import socket
 
 def client(msg):
-    # 로컬은 127.0.0.1의 ip로 접속한다.
-    HOST = '127.0.0.1'
+
+    HOST = 'host'
     # port는 위 서버에서 설정한 9999로 접속을 한다.
     PORT = 9999
     # 소켓을 만든다.
