@@ -1,39 +1,30 @@
-import hashlib
 
-import imageio
-import numpy as np
-import matplotlib.pyplot as plt
+from Cryptodome.Cipher import AES
 
-
-def kaleidoscope(image, message, noise=0):
-    m = hashlib.sha512()
-    m.update(message.encode())
-    hashed = m.digest()
-
-    masked = image.copy()
-    masked_list = masked.reshape((1, masked.size)).tolist()
-
-    noise_list = np.random.normal(0, noise, masked.size).tolist()
-    for i in range(len(masked_list[0])):
-        value = max(0, min(255, masked_list[0][i] + int(noise_list[i])))
-        #value = masked_list[0][i]
-        masked_list[0][i] = value ^ hashed[i % 64]
-
-    masked = np.array(masked_list, dtype=np.uint8).reshape(masked.shape)
-    return masked
-
-#
-#
-# if __name__ == '__main__':
-#     face = imageio.imread('./8.39.18.jpg')
-#
-#     en = kaleidoscope(face, 'apple', 50)
-#     plt.imshow(en)
-#     plt.show()
-#
-#     de = kaleidoscope(en, 'apple')
-#     plt.imshow(de)
-#     plt.show()
+# 바이트 어레이 표시함수(확인 끝나면 없애도 될 듯)
+def print_hex_bytes(name, byte_array):
+    print('{} len[{}]: '.format(name, len(byte_array)), end='')
+    for idx, c in enumerate(byte_array):
+        print("{:02x}".format(int(c)), end='')
+    print("")
 
 
-# 코드 : https://minhwan.kim/kaleidoscope-symmetric-image-encryption-decryption/
+# 암호화 함수
+def enc(key, aad, nonce, plain_data):
+    print('\nenter enc function ---------------------------------')
+    # AES GCM으로 암호화 라이브러리 생성
+    cipher = AES.new(key, AES.MODE_GCM, nonce)
+
+    # aad(Associated Data) 추가
+    cipher.update(aad)
+
+    # 암호!!!
+    cipher_data = cipher.encrypt(plain_data)
+    mac = cipher.digest()
+
+    # 암호화된 데이터 와 MAC Tag(Message Authentication Codes tag) 출력
+    print_hex_bytes('cipher_data', cipher_data)
+    print_hex_bytes('mac', mac)
+    print('exit enc function ---------------------------------')
+    # 암호 데이터와 mac 리턴
+    return cipher_data, mac
