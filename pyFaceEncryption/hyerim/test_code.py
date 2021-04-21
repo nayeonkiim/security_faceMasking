@@ -75,6 +75,11 @@ print(type(encoded_img))
 print(img)
 
 
+# 바이너리를 문자열로 바꾸기
+# b'\x50\x51'.decode('utf-8')
+# b'\x50\x51\xffed'.decode('utf-8', 'ignore')
+
+
 
 
 
