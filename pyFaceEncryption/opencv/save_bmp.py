@@ -3,24 +3,28 @@ import numpy as np
 from PIL import Image
 from matplotlib import pyplot as plt
 
-image = cv2.imread('C:/opencv/4m20/na.bmp')
+image = cv2.imread('C:/opencv/4m20/two.bmp')
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-xml = '../haarcascades/haarcascade_frontalface_default.xml'
+xml = 'C:/Users/rlask/security/Real-time-face-recognition-and-mosaic-using-deep-learning/haarcascades/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(xml)
 faces = face_cascade.detectMultiScale(gray, 1.2, 5)
 
 print("Number of faces detected: " + str(len(faces)))
 
+totalArr = []
 if len(faces):
     for (x,y,w,h) in faces:
         cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),2)
+        totalArr.append((x,y,w,h))
+
+print(totalArr)
 
 plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB), cmap='gray')
 plt.xticks([]), plt.yticks([])
 plt.show()
 
-imageFile='C:/opencv/4m20/na.bmp'
+imageFile='C:/opencv/4m20/two.bmp'
 img = cv2.imread(imageFile, 0)
 height, width = img.shape
 
@@ -28,57 +32,58 @@ height, width = img.shape
 a = np.arange(width * height).reshape(height, width)
 print(str(width) + "," + str(height))  # 3024, 4032
 
-arrays = [(x,y),(x+w,y),(x,y+h),(x+w,y+h)]
-arr = []
 i=0
-for (first, last) in arrays :
-    if first > 0 and first < width // 2:
-        if last > 0 and last < height // 2:
-            if 1 not in arr:
-                arr.insert(i,1)
-                i+=1
+arr = []
+for (x,y,w,h) in totalArr:
+    arrays = [(x,y),(x+w,y),(x,y+h),(x+w,y+h)]
+    for (first, last) in arrays :
+        if first > 0 and first < width // 2:
+            if last > 0 and last < height // 2:
+                if 1 not in arr:
+                    arr.insert(i,1)
+                    i+=1
 
-    elif first > 0 and first < width // 2:
-        if last > 0 and last < height // 2:
-            if 1 not in arr:
-                arr.insert(i,1)
-                i+=1
+        elif first > 0 and first < width // 2:
+            if last > 0 and last < height // 2:
+                if 1 not in arr:
+                    arr.insert(i,1)
+                    i+=1
 
-    if first > width // 2 and first < width:
-        if last > 0 and last < height // 2:
-            if 2 not in arr:
-                arr.insert(i,2)
-                i += 1
-    elif first > width // 2 and first < width:
-        if last > 0 and last < height // 2:
-            if 2 not in arr:
-                arr.insert(i,2)
-                i += 1
+        if first > width // 2 and first < width:
+            if last > 0 and last < height // 2:
+                if 2 not in arr:
+                    arr.insert(i,2)
+                    i += 1
+        elif first > width // 2 and first < width:
+            if last > 0 and last < height // 2:
+                if 2 not in arr:
+                    arr.insert(i,2)
+                    i += 1
 
-    if first > 0 and first < width // 2:
-        if last > height // 2 and last < height:
-            if 3 not in arr:
-                arr.insert(i,3)
-                i += 1
+        if first > 0 and first < width // 2:
+            if last > height // 2 and last < height:
+                if 3 not in arr:
+                    arr.insert(i,3)
+                    i += 1
 
-    elif first > 0 and first < width // 2:
-        if last > height // 2 and last < height:
-            if 3 not in arr:
-                arr.insert(i,3)
-                i += 1
+        elif first > 0 and first < width // 2:
+            if last > height // 2 and last < height:
+                if 3 not in arr:
+                    arr.insert(i,3)
+                    i += 1
 
-    if first > width // 2 and first < width:
-        if last > height // 2 and last < height:
-            if 4 not in arr:
-                arr.insert(i,4)
-                i += 1
-    elif first > width // 2 and first < width:
-        if last > height // 2 and last < height:
-            if 4 not in arr:
-                arr.insert(i,4)
-                i += 1
+        if first > width // 2 and first < width:
+            if last > height // 2 and last < height:
+                if 4 not in arr:
+                    arr.insert(i,4)
+                    i += 1
+        elif first > width // 2 and first < width:
+            if last > height // 2 and last < height:
+                if 4 not in arr:
+                    arr.insert(i,4)
+                    i += 1
 
-print("arr: " + str(arr))
+print("arr : " + str(arr))
 
 for al in arr:
     print(al)
