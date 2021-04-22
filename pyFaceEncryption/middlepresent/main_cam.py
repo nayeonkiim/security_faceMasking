@@ -3,8 +3,9 @@ from datetime import datetime
 import os
 import cv2
 import opencv.img_save
+from middlepresent import img_save
 
-xml = '../haarcascades/haarcascade_frontalface_default.xml'
+xml = 'C:/Users/hyeri/Desktop/HyeRim/university/Capstone/Security/security_faceMasking/pyFaceEncryption/hyerim/haarcascades/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(xml)
 
 cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용

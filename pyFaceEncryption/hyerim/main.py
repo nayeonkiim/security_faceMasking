@@ -24,24 +24,19 @@ print_hex_bytes('aad', aad)
 print_hex_bytes('nonce', nonce)
 print_hex_bytes('plain_data', plain_data)
 
-# Header, Data, Tail 부분 찾기
-# print('plain : ')
+# Header, Data, Tail 부분 찾기 시도
+print('plain : ')
 #
-# plain = plain_data.split()
-# plain = plain[1:plain.__sizeof__() - 1]
-# print('plain : ', plain)
+plain = plain_data.split()
+print(type(plain))
+plain = plain[1:plain.__sizeof__() - 1]
+print(type(plain))
+print('plain : ', plain)
+data = bytes(plain)
+print(type(data))
+print('data : ', data)
 # print('plain : ', plain[1])
-#
-# a = bytes()
-# print('plain : ', type(plain))
-# print('plain : ', type(plain[1]))
-#
-# a = binascii.b2a_hex(plain[1])
-#
-# print(a)
-# print_hex_bytes('plain', a)
-#
-# print(bytes(plain))
+
 
 # 암호화 시작
 cipher_data, mac = enc(key, aad, nonce, plain_data)
