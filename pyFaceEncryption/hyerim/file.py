@@ -12,7 +12,7 @@ def file_write(filePath, encrypt_data):
 
 # 파일 읽기
 def file_read(filePath):
-    fr = open('C:/opencv/4m20/ciper.txt', 'rb')
+    fr = open(filePath, 'rb')
     text = fr.read()
     fr.close()
     # 바이너리 데이터 return

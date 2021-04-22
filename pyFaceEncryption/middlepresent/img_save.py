@@ -139,7 +139,7 @@ def crop(imageFile,totalArr):
     print_hex_bytes('\tmac', mac)
 
     # 암호화 한 바이너리 데이터 텍스트 파일에 저장하는 경로
-    bin_filePath = newFileName + 'ciper_cam.txt'
+    bin_filePath = newFileName + 'cipher_cam.txt'
     # 텍스트 파일에 저장
     file_write(bin_filePath, cipher_data)
 
