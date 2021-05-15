@@ -34,7 +34,7 @@ def toImgFile(cipher_data, path):
     array = np.reshape(encoded_img, (480, 640, 3))
 
     data = Image.fromarray(array)
-    data.save(path + ".jpg");
+    data.save(path + "_dec" + ".bmp");
 
 
 

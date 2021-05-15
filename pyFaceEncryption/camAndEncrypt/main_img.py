@@ -18,9 +18,8 @@ def encryptImg(img,path) :
 
     # 암호화 시작
     cipher_data, mac = enc(key, aad, nonce, plain_data)
-
     # 암호화 한 바이너리 데이터 텍스트 파일에 저장하는 경로
-    bin_filePath = path + '.txt'
+    bin_filePath = path + '.bin'
     # 텍스트 파일에 저장
     file_write(bin_filePath, cipher_data)
 
@@ -28,6 +27,7 @@ def encryptImg(img,path) :
 
 
 def decryptImg(bin_filePath, mac, path):
+    print(mac)
     # 바이너리 데이터 텍스트 파일에서 읽어오기
     text = file_read(bin_filePath)
 

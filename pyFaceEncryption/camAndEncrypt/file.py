@@ -1,11 +1,12 @@
 import numpy as np
+import os
 
 # 파일 쓰기
-
-
 def file_write(filePath, encrypt_data):
-    fw = open(filePath, 'wb')
+    fw = open(filePath, "wb")
     fw.write(encrypt_data)
+    n = os.path.getsize(filePath)
+    print("file path: " + str(n))
     fw.close()
 
 

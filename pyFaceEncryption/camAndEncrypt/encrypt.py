@@ -21,7 +21,8 @@ def enc(key, aad, nonce, plain_data):
     # 암호!!!
     cipher_data = cipher.encrypt(plain_data)
     mac = cipher.digest()
-
+    #print_hex_bytes('cipher_data', cipher_data)
+    print_hex_bytes('mac', mac)
     print('exit enc function ---------------------------------')
     # 암호 데이터와 mac 리턴
     return cipher_data, mac
