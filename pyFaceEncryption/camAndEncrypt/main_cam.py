@@ -2,11 +2,11 @@ from datetime import datetime
 
 import os
 import cv2
-import numpy as np
+import base64
 from camAndEncrypt.main_img import encryptImg
-from camAndEncrypt.main_img import decryptImg
 
-xml = 'C:/Users/rlask/security/Real-time-face-recognition-and-mosaic-using-deep-learning/haarcascades/haarcascade_frontalface_default.xml'
+
+xml = '/haarcascades/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(xml)
 
 cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용
@@ -62,15 +62,11 @@ while (True):
                     print('사진 업로드 실패', ex)
 
                 #byte 로 변경
-                biarr = cv2.imread(name + ".bmp", cv2.IMREAD_COLOR).tobytes()
+                with open(name + ".bmp", 'rb') as img:
+                    base64_string = base64.b64encode(img.read())
 
                 # 사진 암호화
-                x,y = encryptImg(biarr, name)
-                print(x)
-                print(y)
-
-                # 사진 복호화
-                decryptImg(x,y,name)
+                x,y = encryptImg(base64_string, name)
 
                 face = cv2.imread(name)
                 i += 1

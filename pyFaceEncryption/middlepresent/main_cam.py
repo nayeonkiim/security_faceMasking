@@ -3,9 +3,9 @@ from datetime import datetime
 import os
 import cv2
 import opencv.img_save
-from middlepresent import img_save
+from middlepresent.main_img import encryptImg
 
-xml = 'C:/Users/hyeri/Desktop/HyeRim/university/Capstone/Security/security_faceMasking/pyFaceEncryption/hyerim/haarcascades/haarcascade_frontalface_default.xml'
+xml = 'C:/Users/rlask/security/Real-time-face-recognition-and-mosaic-using-deep-learning/haarcascades/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(xml)
 
 cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용
@@ -49,31 +49,17 @@ while (True):
                 fileName = str(dt.hour) + "." + str(dt.minute) + "." + str(dt.second)
                 print(time)
                 # .bmp로 저장
-                name = "C:/opencv/" + folderName + "/" + fileName + ".bmp"
+                name = "C:/opencv/" + folderName + "/" + fileName;
                 print(name)
                 try:
-                    cv2.imwrite(name, frame)  # 프레임을 '지금시간'에 저장
+                    cv2.imwrite(name + ".bmp", frame)  # 프레임을 '지금시간'에 저장
                     print('사진 저장 완료')
                 except Exception as ex:  # 에러 종류
                     print('사진 업로드 실패', ex)
 
+                x,y = encryptImg(name)
+
                 face = cv2.imread(name)
-
-
-                # 얼굴 인식 영역만 사진 자르기
-                img_save.crop(name,faceArr)
-
-                try:
-                    # 로컬에 저장한 사진 aws s3로 업로드
-                    #result = fileUpload.fileUpToS3(name)
-                    print("result: ok")
-                except Exception as ex: # 에러 종류
-                    print('사진 업로드 실패', ex)
-
-                i += 1
-            else:
-                print('no frame!')
-                break
 
         for (x, y, w, h) in faces:
             print(x, y, w, h)
@@ -93,6 +79,3 @@ while (True):
 
 cap.release()
 cv2.destroyAllWindows()
-
-
-

@@ -21,8 +21,8 @@ def dec(key, aad, nonce, cipher_data, mac):
         # 복호화!!!
         plain_data = cipher.decrypt_and_verify(cipher_data, mac)
         # 암호화된 데이터 출력
-        print_hex_bytes('plain_data', plain_data)
         print('exit dec function ---------------------------------')
+        print(type(plain_data))
         # 복호화 된 값 리턴
         return plain_data
 
