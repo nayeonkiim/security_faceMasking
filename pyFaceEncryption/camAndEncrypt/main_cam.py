@@ -51,17 +51,30 @@ while (True):
                 # 사진 캡처된 시간
                 fileName = str(dt.hour) + "." + str(dt.minute) + "." + str(dt.second)
                 print(time)
-                # .bmp로 저장
+
                 name = "C:/opencv/" + folderName + "/" + fileName;
-                print(type(frame))
-                biarr = frame.tobytes()
+
+                try:
+                    # .bmp로 저장
+                    cv2.imwrite(name + ".bmp", frame)  # 프레임을 '지금시간'에 저장
+                    print('사진 저장 완료')
+                except Exception as ex:  # 에러 종류
+                    print('사진 업로드 실패', ex)
+
+                #byte 로 변경
+                biarr = cv2.imread(name + ".bmp", cv2.IMREAD_COLOR).tobytes()
+
                 # 사진 암호화
                 x,y = encryptImg(biarr, name)
+                print(x)
+                print(y)
+
                 # 사진 복호화
-                #decryptImg(x,y,name)
+                decryptImg(x,y,name)
 
                 face = cv2.imread(name)
                 i += 1
+
             else:
                 print('no frame!')
                 break
