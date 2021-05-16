@@ -1,0 +1,27 @@
+{
+  "name": "security_faceweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "base-64": "^1.0.0",
+    "btoa-atob": "^0.1.2",
+    "buffer-to-uint8array": "^1.1.0",
+    "canvas": "^2.7.0",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "nodemon": "^2.0.7",
+    "npm": "^7.12.0",
+    "numjs": "git+https://github.com/nicolaspanel/numjs.git",
+    "nunjucks": "^3.2.3",
+    "path": "^0.12.7",
+    "sharp": "^0.28.1"
+  }
+}
