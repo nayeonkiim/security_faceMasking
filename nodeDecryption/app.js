@@ -5,6 +5,8 @@ const nunjucks = require('nunjucks');
 const indexRouter = require('./routes/index');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.set('port', process.env.PORT || 3001);  //3001 포트로 설정 
 app.set('view engine', 'html');

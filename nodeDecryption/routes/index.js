@@ -2,8 +2,12 @@ const express = require('express');
 const router = express.Router();
 const decrypt = require('./decrypt');
 
+router.get('/', (req, res, next) => {
+    res.render('input');
+});
 
-router.get('/', decrypt.dec);
+router.post('/dec', decrypt.dec);
+
 router.get('/filter', (req, res, next) => {
     res.render('index');
 })

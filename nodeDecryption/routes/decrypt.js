@@ -1,15 +1,25 @@
 const fs = require('fs');
 const crypto = require('crypto');
+const express = require('express');
 
 exports.dec = (req, res) => {
+    //{ date: '2021-05-15', time: '21:58' }
+    console.log(req.body);
+    const date = req.body.date;
+    const time = req.body.time;
+    const dateArr = date.split("-");
+    const timeArr = time.split(":");
+
     // 암호화 키
     const key = Buffer.from('00112233445566778899aabbccddeeff', 'hex');
     // number used once 매번 바꿔 사용하는 번호 
     const nonce = Buffer.from('112233445566778899aabbcc', 'hex');
     // Addtional Associated Data : https://cloud.google.com/kms/docs/additional-authenticated-data
     const aad = Buffer.from('0102030405060708090a0b0c0d0e', 'hex');
-    var ciphertext = Buffer.from(fs.readFileSync('C:/opencv/5m15/21.58.11.bin'), 'hex');
+    var ciphertext = Buffer.from(fs.readFileSync("C:/opencv/" + dateArr[1] + "m" + dateArr[2] + "/" + timeArr[0] + "." + timeArr[1] + ".bin"), 'hex');
+    //var ciphertext = Buffer.from(fs.readFileSync("'C:/opencv/5m15/21.58.11.bin'), 'hex');
     var mac = Buffer.from('bc5f3541b146b38a3658445c68916887', 'hex');
+    //var mac = Buffer.from('db 로부터 가져오기', 'hex');
 
     // 키 정보 출력
 
