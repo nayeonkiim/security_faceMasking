@@ -3,9 +3,47 @@ from camAndEncrypt.img_change import get_img, image_to_byte_array, toImgFile
 from camAndEncrypt.file import file_write
 from camAndEncrypt.file import file_read
 from camAndEncrypt.decrypt import dec
-import cv2
-import numpy as np
-from PIL import Image
+import mysql.connector
+
+# query 실행
+def query_executor(cursor, paramMac, paramDatetime):
+    sql = "insert into infos(mac, datetime) value(%s,%s)"
+    cursor.execute(sql, (paramMac, paramDatetime))
+
+
+# mySql db 연결
+def macInsert(year, month, day, hour, minute, mac):
+
+    dateFormat = year + '-' + month + '-' + day + " " + hour + ":" + minute
+    print('date : ', dateFormat)
+
+    try:
+
+        mysql_con = mysql.connector.connect(host='localhost', port='3306', database='imgmac', user='root',
+                                            password='1234')
+        print('db 연결 완료')
+
+        mysql_cursor = mysql_con.cursor(dictionary=True)
+
+        query_executor(mysql_cursor, mac, dateFormat)
+
+        mysql_con.commit()
+
+        for row in mysql_cursor:
+            print('mac is: ' + str(row['mac']))
+
+        mysql_cursor.close()
+
+
+    except Exception as e:
+        print(e.message)
+
+
+    finally:
+        if mysql_con is not None:
+            mysql_con.close()
+
+
 
 
 def encryptImg(img,path) :

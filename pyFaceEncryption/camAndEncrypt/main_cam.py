@@ -3,8 +3,7 @@ from datetime import datetime
 import os
 import cv2
 import base64
-from camAndEncrypt.main_img import encryptImg
-
+from camAndEncrypt.main_img import encryptImg, macInsert
 
 xml = 'C:/Users/hyeri/Desktop/Capstone/Security/Real-time-face-recognition-and-mosaic-using-deep-learning-master/haarcascades/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(xml)
@@ -86,6 +85,17 @@ while (True):
 
                 # 사진 암호화(base64 URL)
                 x,y = encryptImg(base64_string, name)
+
+                # mac -> String
+                macStr = ''
+
+                for idx, c in enumerate(y):
+                    macStr += "{:02x}".format(int(c))
+
+                print('macStr : ', macStr)
+
+                # 이미지 mac(y)을 DB에 넣기
+                macInsert(str(dt.year), month, day, hour, minute, macStr)
 
                 face = cv2.imread(name)
                 i += 1
