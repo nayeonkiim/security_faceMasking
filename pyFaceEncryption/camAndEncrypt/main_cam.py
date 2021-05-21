@@ -5,7 +5,7 @@ import cv2
 import base64
 from camAndEncrypt.main_img import encryptImg, macInsert
 
-xml = '/haarcascades/haarcascade_frontalface_default.xml'
+xml = 'C:/Users/hyeri/Desktop/Capstone/Security/Real-time-face-recognition-and-mosaic-using-deep-learning-master/haarcascades/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(xml)
 
 cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용
@@ -108,13 +108,30 @@ while (True):
             face_img = cv2.resize(face_img, (w, h), interpolation=cv2.INTER_AREA)  # 확대
             frame[y:y + h, x:x + w] = face_img  # 인식된 얼굴 영역 모자이크 처리
 
-            time = datetime.now()
 
-        cv2.imshow('result', frame)
+        file_path = 'C:/Users/hyeri/Desktop/record.avi'  # 저장할 파일 경로 이름 ---①
+        fps = 30.0  # FPS, 초당 프레임 수
+        fourcc = cv2.VideoWriter_fourcc(*'DIVX')  # 인코딩 포맷 문자
+        width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+        height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        size = (int(width), int(height))  # 프레임 크기
+        out = cv2.VideoWriter(file_path, fourcc, fps, size)  # VideoWriter 객체 생성
 
-        k = cv2.waitKey(30) & 0xff
-        if k == 27:  # Esc 키를 누르면 종료
-            break
+        while True:
+            if ret:
+                cv2.imshow('camera-recording', frame)
+                out.write(frame)  # 파일 저장
+                if cv2.waitKey(int(1000 / fps)) != -1:
+                    break
+            else:
+                print("no frame!")
+                break
+
+
+
+        # k = cv2.waitKey(30) & 0xff
+        # if k == 27:  # Esc 키를 누르면 종료
+        #     break
 
 cap.release()
 cv2.destroyAllWindows()
