@@ -5,7 +5,7 @@ import cv2
 import base64
 from camAndEncrypt.main_img import encryptImg, macInsert
 
-xml = 'C:/Users/hyeri/Desktop/Capstone/Security/Real-time-face-recognition-and-mosaic-using-deep-learning-master/haarcascades/haarcascade_frontalface_default.xml'
+xml = '/haarcascades/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(xml)
 
 cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용
@@ -33,10 +33,7 @@ while (True):
             time2 = datetime.now()
             print("time2 : " + str(time2))  #0.587272 초
             # 시간값도 설정하기
-            if (time2-time).microseconds >= 200000 or i == 0:
-                if i != 0:
-                    time = time2
-
+            if (time2-time).seconds >= 60 or i == 0:
                 # 해당 경로에 폴더가 존재하지 않으면 새로 생성
                 dt = datetime.now()
 
@@ -99,10 +96,10 @@ while (True):
 
                 face = cv2.imread(name)
                 i += 1
+                time = time2
 
             else:
-                print('no frame!')
-                break
+                continue;
 
         for (x, y, w, h) in faces:
             print(x, y, w, h)
