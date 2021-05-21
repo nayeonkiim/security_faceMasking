@@ -27,7 +27,6 @@ exports.dec = async (req, res) => {
                 resolve();
             });
         }).then(() => {
-            console.log("then: " + reQuery);
             let imgsrc = logic(reQuery, dateArr, timeArr);
             res.render('main', { imgsrc: imgsrc });
         });
