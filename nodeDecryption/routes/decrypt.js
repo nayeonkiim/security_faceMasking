@@ -19,7 +19,7 @@ exports.dec = async (req, res) => {
     let reQuery = '';
     try {
         const que = new Promise((resolve, reject) => {
-            conn.query(`SELECT mac FROM infos where datetime like ?`, datetime, (err, res) => {
+            conn.query(`SELECT mac FROM infos where datetime like ? order by id desc`, datetime, (err, res) => {
                 if (err) return reject("conn", `${err.message}`);
 
                 if (res.length > 0 && res[0].mac)
