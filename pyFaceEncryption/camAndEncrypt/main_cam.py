@@ -8,8 +8,9 @@ from camAndEncrypt.main_img import encryptImg, macInsert
 
 
 def toencrypt(cap):
-    cond = True
-    while (cond):
+    cnt1 = 0
+    while (setFlag(cnt1)):
+        cnt1 += 1
         # 얼굴 인식
         ret, frame = cap.read()
         frame = cv2.flip(frame, 1)  # 좌우 대칭
@@ -95,6 +96,8 @@ def toencrypt(cap):
                     i += 1
                     time = time2
 
+
+
 def WebcamVieoWriter(cap):
         # 얼굴 인식
         width = int(cap.get(3))
@@ -106,12 +109,40 @@ def WebcamVieoWriter(cap):
         fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         # fourcc = cv2.VideoWriter_fourcc('D','I','V','X')
 
+        # 해당 경로에 폴더가 존재하지 않으면 새로 생성
+        dt = datetime.now()
+
+        # 월
+        month = str(dt.month)
+        # month를 05, 08 형태로 만들기
+        if (month.__len__() == 1):
+            month = '0' + month
+
+        # 일
+        day = str(dt.day)
+        # day를 05, 08 형태로 만들기
+        if (day.__len__() == 1):
+            day = '0' + day
+
+        folderName = month + "m" + day
+        print(folderName)
+        path = "C:/opencv/" + folderName
+
+        if not os.path.isdir(path):
+            os.mkdir(path)
+            print('파일 생성 완료')
+
+        file_path = "C:/opencv/" + folderName + "/SaveVideo.mp4"
+
         # 비디오 저장을 위한 객체를 생성해줌.
-        out = cv2.VideoWriter('SaveVideo.mp4', fourcc, 20.0, (width, height))
+        out = cv2.VideoWriter(file_path, fourcc, 5.0, (width, height))
 
-        while (True):
+        cnt2 = 0
+
+        while (setFlag(cnt2)):
+            cnt2 += 1
+
             ret, frame = cap.read()
-
 
             if not ret:
                 print("비디오 읽기 오류")
@@ -147,8 +178,19 @@ def WebcamVieoWriter(cap):
 
 
 
+# 스레드 종료시키기
+def setFlag(cnt) :
+
+    if((mythread2.is_alive() and mythread1.is_alive()) or cnt == 0):
+        return True
+
+    else :
+        return False
+
+
+
 if __name__ == '__main__':
-    xml = '/haarcascades/haarcascade_frontalface_default.xml'
+    xml = 'C:/Users/hyeri/Desktop/Capstone/Security/Real-time-face-recognition-and-mosaic-using-deep-learning-master/haarcascades/haarcascade_frontalface_default.xml'
     face_cascade = cv2.CascadeClassifier(xml)
 
     cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용
@@ -160,3 +202,5 @@ if __name__ == '__main__':
 
     mythread1.start()
     mythread2.start()
+
+
