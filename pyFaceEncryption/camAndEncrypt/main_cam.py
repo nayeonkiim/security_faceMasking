@@ -103,11 +103,7 @@ def WebcamVieoWriter(cap):
         width = int(cap.get(3))
         height = int(cap.get(4))
 
-        # 코덱정보를 나타냄 아래의 두줄과 같이 사용할 수 있음.
-        # 둘중 어느것을 쓰든 상관없음.
-        # 여러가지의 코덱종류가 있지만 윈도우라면 DIVX 를 사용
-        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-        # fourcc = cv2.VideoWriter_fourcc('D','I','V','X')
+        fourcc = cv2.VideoWriter_fourcc(*'X264')
 
         # 해당 경로에 폴더가 존재하지 않으면 새로 생성
         dt = datetime.now()
@@ -190,7 +186,7 @@ def setFlag(cnt) :
 
 
 if __name__ == '__main__':
-    xml = 'C:/Users/hyeri/Desktop/Capstone/Security/Real-time-face-recognition-and-mosaic-using-deep-learning-master/haarcascades/haarcascade_frontalface_default.xml'
+    xml = 'C:/Users/rlask/security/Real-time-face-recognition-and-mosaic-using-deep-learning/haarcascades/haarcascade_frontalface_default.xml'
     face_cascade = cv2.CascadeClassifier(xml)
 
     cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용

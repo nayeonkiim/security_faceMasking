@@ -1,0 +1,29 @@
+* {
+    font-size: 16px;
+    font-family: Consolas, sans-serif;
+}
+
+.inputItem {
+    margin-bottom: 10px;
+}
+
+h1 {
+    margin-top : 60px;
+    text-align: center;            
+    font-weight: 100;
+    font-size: 30px;
+}
+
+.formWrap {
+    width: 550px;
+    overflow: auto;
+    margin: 30px auto;
+}
+
+.inputWrap {
+    float: left;
+}
+
+.sendbtn {
+    float: right
+}
