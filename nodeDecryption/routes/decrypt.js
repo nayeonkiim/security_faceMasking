@@ -8,7 +8,7 @@ var conn = db_config.init();
 db_config.connect(conn);
 
 exports.dec = async (req, res) => {
-    //{ date: '2021-05-15', time: '21:58' }
+    //{ date: '2021-05-15', time: '21:58:01' }
     console.log(req.body);
     const date = req.body.date;
     const time = req.body.time;
@@ -44,7 +44,7 @@ function logic(reQuery, dateArr, timeArr) {
     const nonce = Buffer.from('112233445566778899aabbcc', 'hex');
     // Addtional Associated Data : https://cloud.google.com/kms/docs/additional-authenticated-data
     const aad = Buffer.from('0102030405060708090a0b0c0d0e', 'hex');
-    var ciphertext = Buffer.from(fs.readFileSync("C:/opencv/" + dateArr[1] + "m" + dateArr[2] + "/" + timeArr[0] + "." + timeArr[1] + ".bin"), 'hex');
+    var ciphertext = Buffer.from(fs.readFileSync("C:/opencv/" + dateArr[1] + "m" + dateArr[2] + "/" + timeArr[0] + "." + timeArr[1] + "." + timeArr[2] + ".bin"), 'hex');
     //var ciphertext = Buffer.from(fs.readFileSync("'C:/opencv/05m15/21.58.bin'), 'hex');
     console.log(reQuery);
     var mac = Buffer.from(reQuery, 'hex');
