@@ -31,7 +31,7 @@ def toencrypt(cap):
                 time2 = datetime.now()
                 print("time2 : " + str(time2))  #0.587272 초
                 # 시간값도 설정하기
-                if (time2-time).seconds >= 60 or i == 0:
+                if (time2-time).seconds >= 15 or i == 0:
                     # 해당 경로에 폴더가 존재하지 않으면 새로 생성
                     dt = datetime.now()
 
@@ -67,8 +67,15 @@ def toencrypt(cap):
                     if (minute.__len__() == 1):
                         minute = '0' + minute
 
+                    # 초
+                    second = str(dt.second)
+                    # minute를 05, 08 형태로 만들기
+                    if (second.__len__() == 1):
+                        second = '0' + second
+
+
                     # 사진 캡처된 시간
-                    fileName = hour + "." + minute
+                    fileName = hour + "." + minute + "." + second
                     print(time)
 
                     name = "C:/opencv/" + folderName + "/" + fileName
@@ -186,7 +193,7 @@ def setFlag(cnt) :
 
 
 if __name__ == '__main__':
-    xml = 'C:/Users/rlask/security/Real-time-face-recognition-and-mosaic-using-deep-learning/haarcascades/haarcascade_frontalface_default.xml'
+    xml = 'C:/Users/hyeri/Desktop/Capstone/Security/Real-time-face-recognition-and-mosaic-using-deep-learning-master/haarcascades/haarcascade_frontalface_default.xml'
     face_cascade = cv2.CascadeClassifier(xml)
 
     cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용
