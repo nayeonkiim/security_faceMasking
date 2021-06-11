@@ -12,9 +12,9 @@ def query_executor(cursor, paramMac, paramDatetime):
 
 
 # mySql db 연결
-def macInsert(year, month, day, hour, minute, mac):
+def macInsert(year, month, day, hour, minute, second, mac):
 
-    dateFormat = year + '-' + month + '-' + day + " " + hour + ":" + minute
+    dateFormat = year + '-' + month + '-' + day + " " + hour + ":" + minute + ":" + second
     print('date : ', dateFormat)
 
     try:

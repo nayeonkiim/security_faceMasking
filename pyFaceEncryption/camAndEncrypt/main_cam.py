@@ -97,7 +97,7 @@ def toencrypt(cap):
                     print('macStr : ', macStr)
 
                     # 이미지 mac(y)을 DB에 넣기
-                    macInsert(str(dt.year), month, day, hour, minute, macStr)
+                    macInsert(str(dt.year), month, day, hour, minute, second, macStr)
 
                     face = cv2.imread(name)
                     i += 1
@@ -193,7 +193,7 @@ def setFlag(cnt) :
 
 
 if __name__ == '__main__':
-    xml = 'C:/Users/hyeri/Desktop/Capstone/Security/Real-time-face-recognition-and-mosaic-using-deep-learning-master/haarcascades/haarcascade_frontalface_default.xml'
+    xml = '/haarcascades/haarcascade_frontalface_default.xml'
     face_cascade = cv2.CascadeClassifier(xml)
 
     cap = cv2.VideoCapture(0)  # 노트북 웹캠을 카메라로 사용
