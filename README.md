@@ -10,6 +10,5 @@
 - Mysql
 
 ## database
-<img src="https://user-images.githubusercontent.com/61819669/121828157-b88b6c00-ccf9-11eb-9b48-19dea2735f11.png">
-
+<img src="https://user-images.githubusercontent.com/61819669/121828216-ebcdfb00-ccf9-11eb-862f-6aa06283a7df.png">
 
